@@ -1,0 +1,9 @@
+langchain
+streamlit
+langchain-community
+pypdf
+python-dotenv
+os
+requests
+bs4
+markdownify
