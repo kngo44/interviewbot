@@ -63,10 +63,10 @@ def pdf_info(pdf_path):
 pdf_path = "Ngo, Khuong.pdf"
 pdf_data = pdf_info(pdf_path)
 
-print(website_data[600:1000])
+# print(website_data[2000:5000])
 # print(pdf_data[:400])
 
 user_information = website_data + pdf_data
 
-text_splitter = RecursiveCharacterTextSplitter(chunk_size=100, chunk_overlap=0)
+text_splitter = RecursiveCharacterTextSplitter(chunk_size=20000, chunk_overlap=4000)
 docs = text_splitter.create_documents([user_information])
