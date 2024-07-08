@@ -70,3 +70,7 @@ user_information = website_data + pdf_data
 
 text_splitter = RecursiveCharacterTextSplitter(chunk_size=20000, chunk_overlap=4000)
 docs = text_splitter.create_documents([user_information])
+
+map_prompt = """You are an expert 
+
+"""
