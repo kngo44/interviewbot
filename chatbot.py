@@ -71,6 +71,39 @@ user_information = website_data + pdf_data
 text_splitter = RecursiveCharacterTextSplitter(chunk_size=20000, chunk_overlap=4000)
 docs = text_splitter.create_documents([user_information])
 
-map_prompt = """You are an expert 
+map_prompt = """You are an expert recruiter that aids a user in practicing interviews.
+Below is information about a person named {persons_name} and the place they are getting interviewed at called {job_name}
+Information will include a resume about {persons_name} and a job description about {job_name}
+Your goal is to generate interview questions that {job_name} might ask {persons_name}
+Use specifics from the resume and job description when possible
 
+% START OF INFORMATION ABOUT {persons_name} and {job_name}:
+{text}
+$ END OF INFORMATION ABOUT {persons_name} and {job_name}:
+
+Please respond with list of a few interview questions based on the topics above
+
+YOUR RESPONSE:"""
+map_prompt_template = PromptTemplate(template=map_prompt, input_variables=["text", "persons_name", "job_name"])
+
+combine_prompt = """
+You are an expert recruiter that aids a user in practicing interviews.
+You will be given a list of potential interview questions that we can ask {persons_name}.
+
+Please consolidate the questions and return a list
+
+% INTERVIEW QUESTIONS
+{text}
+
+% YOUR RESPONSE:
 """
+combine_prompt_template = PromptTemplate(template=combine_prompt, input_variables=["text", "persons_name"])
+
+llm = ChatOpenAI(temperature=0.25, model_name='gpt-3.5-turbo')
+
+chain = load_summarize_chain(llm,
+                             chain_type="map_reduce",
+                             map_prompt=map_prompt_template,
+                             combine_prompt=combine_prompt_template,
+                             verbose=True
+                             )
