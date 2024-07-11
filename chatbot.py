@@ -15,11 +15,12 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY', 'OPENAI_API_KEY') 
 
-OPEN_API_KEY = os.getenv('OPENAI_API_KEY', 'OPENAI_API_KEY') 
-
-# def load_LLM(open_api_key):
-#     llm = ChatOpenAI(temperature=0.7, openai_api_key=OPEN_API_KEY)
+# function to load llm
+def load_LLM(openai_api_key):
+    llm = ChatOpenAI(temperature=0.7, openai_api_key=openai_api_key, max_tokens=2000, model_name='gpt-3.5-turbo')
+    return llm
 
 # function to get info from urls
 def website_info(url):
@@ -103,14 +104,14 @@ Please consolidate the questions and return a list
 combine_prompt_template = PromptTemplate(template=combine_prompt, input_variables=["text", "persons_name"])
 
 # temperature ranges from 0 to 2, lower values indicate greater determinism and higher values indicate more randomness.
-llm = ChatOpenAI(temperature=0.25, model_name='gpt-3.5-turbo')
+llm = load_LLM(openai_api_key=OPENAI_API_KEY)
 
 # create the chain
 chain = load_summarize_chain(llm,
                              chain_type="map_reduce",
                              map_prompt=map_prompt_template,
                              combine_prompt=combine_prompt_template,
-#                             verbose=True
+                             # verbose=True
                              )
 
 # run the chain
