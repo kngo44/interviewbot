@@ -1,9 +1,11 @@
 langchain
 streamlit
 langchain-community
+langchain-openai
 pypdf
 python-dotenv
 os
 requests
 bs4
 markdownify
+tiktoken

@@ -1,5 +1,5 @@
 from langchain_core.prompts import PromptTemplate
-from langchain_community.chat_models import ChatOpenAI
+from langchain_openai import ChatOpenAI
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.chains.summarize import load_summarize_chain
 
@@ -18,8 +18,8 @@ load_dotenv()
 
 OPEN_API_KEY = os.getenv('OPENAI_API_KEY', 'OPENAI_API_KEY') 
 
-def load_LLM(open_api_key):
-    llm = ChatOpenAI(temperature=0.7, openai_api_key=OPEN_API_KEY)
+# def load_LLM(open_api_key):
+#     llm = ChatOpenAI(temperature=0.7, openai_api_key=OPEN_API_KEY)
 
 # function to get info from urls
 def website_info(url):
@@ -66,10 +66,13 @@ pdf_data = pdf_info(pdf_path)
 # print(website_data[2000:5000])
 # print(pdf_data[:400])
 
-user_information = website_data + pdf_data
+# information from url and pdf
+user_information = pdf_data + website_data
 
-text_splitter = RecursiveCharacterTextSplitter(chunk_size=20000, chunk_overlap=4000)
+# split user information into different documents
+text_splitter = RecursiveCharacterTextSplitter(chunk_size=6000, chunk_overlap=1000)
 docs = text_splitter.create_documents([user_information])
+# print(len(docs))
 
 map_prompt = """You are an expert recruiter that aids a user in practicing interviews.
 Below is information about a person named {persons_name} and the place they are getting interviewed at called {job_name}
@@ -99,11 +102,21 @@ Please consolidate the questions and return a list
 """
 combine_prompt_template = PromptTemplate(template=combine_prompt, input_variables=["text", "persons_name"])
 
+# temperature ranges from 0 to 2, lower values indicate greater determinism and higher values indicate more randomness.
 llm = ChatOpenAI(temperature=0.25, model_name='gpt-3.5-turbo')
 
+# create the chain
 chain = load_summarize_chain(llm,
                              chain_type="map_reduce",
                              map_prompt=map_prompt_template,
                              combine_prompt=combine_prompt_template,
-                             verbose=True
+#                             verbose=True
                              )
+
+# run the chain
+output = chain.invoke({"input_documents": docs,
+                       "persons_name": "Khuong Ngo",
+                       "job_name" : "MD Anderson"
+                       })
+
+print(output['output_text'])
