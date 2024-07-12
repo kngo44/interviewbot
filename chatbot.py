@@ -115,9 +115,34 @@ chain = load_summarize_chain(llm,
                              )
 
 # run the chain
-output = chain.invoke({"input_documents": docs,
+# output = chain.invoke({"input_documents": docs,
+#                        "persons_name": "Khuong Ngo",
+#                        "job_name" : "MD Anderson"
+#                        })
+
+# print(output['output_text'])
+
+st.title('interviewbot')
+
+if 'messages' not in st.session_state:
+    st.session_state.messages = []
+
+prompt = st.chat_input('Ask me anything')
+
+if prompt:
+    # display prompt
+    st.chat_message('user').markdown(prompt)
+    # store user prompt in state
+    st.session_state.messages.append({'role':'user', 'content':prompt})
+    # send prompt to llm
+    output = chain.invoke({"input_documents": docs,
                        "persons_name": "Khuong Ngo",
                        "job_name" : "MD Anderson"
                        })
-
-print(output['output_text'])
+    llm_response = output['output_text']
+    # store llm response
+    st.chat_message('assistant').markdown(llm_response)
+    # store llm response in state
+    st.session_state.messages.append(
+        {'role':'assistant', 'content':llm_response})
+    
