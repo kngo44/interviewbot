@@ -122,7 +122,7 @@ chain = load_summarize_chain(llm,
 
 # print(output['output_text'])
 
-# going to remove streamlit
+# going to remove streamlit code
 st.title('interviewbot')
 
 if 'messages' not in st.session_state:
