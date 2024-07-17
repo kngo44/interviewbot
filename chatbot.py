@@ -2,6 +2,8 @@ from langchain_core.prompts import PromptTemplate
 from langchain_openai import ChatOpenAI
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.chains.summarize import load_summarize_chain
+from langchain.chains.question_answering import load_qa_chain
+from langchain.chains.conversational import load_conversational_chain
 
 import streamlit as st
 
