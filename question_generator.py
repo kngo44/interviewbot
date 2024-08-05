@@ -3,7 +3,7 @@ from langchain.prompts import PromptTemplate
 from langchain_openai import OpenAI
 
 def generate_questions(resume_chunks, job_description_chunks, additional_context, api_key):
-    llm = OpenAI(api_key=api_key, model="gpt-4")
+    llm = OpenAI(api_key=api_key, model="gpt-4o-mini")
     prompt_template = PromptTemplate(
         input_variables=["resume", "job_description", "context"],
         template="Generate interview questions based on the following resume, job description, and additional context:\n\nResume:\n{resume}\n\nJob Description:\n{job_description}\n\nContext:\n{context}"
