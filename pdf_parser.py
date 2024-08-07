@@ -1,6 +1,6 @@
 from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from preprocessing import preprocess_text
+# from preprocessing import preprocess_text
 
 def parse_pdf(pdf_path):
     try:
