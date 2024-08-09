@@ -1,4 +1,4 @@
-from langchain.chains import LLMChain # Change chain
+from langchain.chains import LLMChain 
 from langchain.prompts import PromptTemplate
 from langchain_openai import OpenAI
 
