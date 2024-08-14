@@ -1,4 +1,4 @@
-from langchain.chains import ConversationChain 
+from langchain.chains import ConversationChain #
 from langchain.memory import ConversationBufferMemory
 from langchain_openai import OpenAI
 
