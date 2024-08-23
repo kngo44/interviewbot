@@ -12,3 +12,6 @@ def provide_feedback(user_responses, api_key):
 
     responses_str = "\n".join([f"Q: {resp['question']}\nA: {resp['response']}" for resp in user_responses])
     feedback = chain.run({"responses": responses_str})
+
+    print("\nFeedback on your interview:")
+    print(feedback)
