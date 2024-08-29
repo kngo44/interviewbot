@@ -6,3 +6,7 @@ from question_generator import generate_questions
 from conversation_agent import conduct_interview
 from feedback_agent import provide_feedback
 from langchain.memory import ConversationBufferMemory
+
+# Load environment variables
+load_dotenv()
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
