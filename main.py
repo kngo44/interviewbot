@@ -10,3 +10,6 @@ from langchain.memory import ConversationBufferMemory
 # Load environment variables
 load_dotenv()
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
+
+def main():
+     resume_path = input("Enter the path to your resume (PDF format): ")
