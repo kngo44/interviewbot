@@ -13,3 +13,4 @@ OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 
 def main():
      resume_path = input("Enter the path to your resume (PDF format): ")
+     job_description_url = input("Enter the URL of the job description: ")
