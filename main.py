@@ -17,3 +17,4 @@ def main():
      additional_context = input("Enter any additional context or preferences for the interview (e.g., preferred job roles, industries): ")
          
      resume_data = parse_pdf(resume_path, OPENAI_API_KEY)
+     job_description_data = parse_url(job_description_url, OPENAI_API_KEY)
