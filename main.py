@@ -18,3 +18,5 @@ def main():
          
      resume_data = parse_pdf(resume_path, OPENAI_API_KEY)
      job_description_data = parse_url(job_description_url, OPENAI_API_KEY)
+
+     questions = generate_questions(resume_data, job_description_data, additional_context, OPENAI_API_KEY)
