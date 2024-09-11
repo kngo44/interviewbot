@@ -20,3 +20,4 @@ def main():
      job_description_data = parse_url(job_description_url, OPENAI_API_KEY)
 
      questions = generate_questions(resume_data, job_description_data, additional_context, OPENAI_API_KEY)
+     memory = ConversationBufferMemory(memory_key="chat_history")
