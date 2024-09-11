@@ -21,3 +21,4 @@ def main():
 
      questions = generate_questions(resume_data, job_description_data, additional_context, OPENAI_API_KEY)
      memory = ConversationBufferMemory(memory_key="chat_history")
+     user_responses = conduct_interview(questions, memory, OPENAI_API_KEY)
