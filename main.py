@@ -23,3 +23,6 @@ def main():
      memory = ConversationBufferMemory(memory_key="chat_history")
      user_responses = conduct_interview(questions, memory, OPENAI_API_KEY)
      provide_feedback(user_responses, OPENAI_API_KEY)
+
+if __name__ == "__main__":
+    main()
